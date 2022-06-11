@@ -27,7 +27,14 @@
       <div id="text">You will be given a bird photo for each question, click the correct name of the bird from the list. </div>
     </div>
     <div id="menu">
-      <div id="start_button" >Start Quiz</div>
+
+          <label id="text" for="quiz_length">Choose the number of questions (1~10)</label>
+          <input id="quiz_length" type="number" name="quiz_length" value = "10" min="1" max="10" required>
+          <span class="validity"></span>
+          <div id="start_button">Start Quiz</div>
+          
+        
+     
     </div>
 
     <!-- QUIZ CONTAINER -->

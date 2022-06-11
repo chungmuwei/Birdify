@@ -27,7 +27,7 @@
   max-width: 600px;
   margin: 0 auto;
   margin-top: 50px;
-  display: flex;
+  /* display: flex; */
 }
 
 #description{
@@ -41,15 +41,35 @@
   font-family: 'Montserrat', sans-serif;
   text-align: center;
 }
+
+input:invalid+span:after {
+  content: '✖';
+  padding-left: 5px;
+  color: red;
+}
+
+input:valid+span:after {
+  content: '✓';
+  padding-left: 5px;
+  color: lime;
+}
+
+#quiz_length {
+  background-color: #4CAF50; /* Green */
+  font-size: 20px;
+  border: 5%;
+  border-radius: 10%;
+}
+
 #start_button {
-  margin: 0 auto;
+  margin: 0 38%;
   background-color: #4CAF50; /* Green */
   border: none;
   color: white;
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
-  display: inline-block;
+  /* display: inline-block; */
   font-size: 16px;
   cursor: pointer;
   justify-content: center;

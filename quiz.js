@@ -124,7 +124,11 @@ var quiz = {
   score: 0, // current score
 
   // (B) INIT QUIZ HTML
-  init: () => {
+  init: (quiz_length) => {
+    // (B0) Shuffle the order of the questions
+    shuffle(quiz.data);
+    //      slice the quiz.data array into the length user wanted
+    quiz.data = quiz.data.slice(0, quiz_length)
     // (B1) WRAPPER
     quiz.hWrap = document.getElementById("quizWrap");
     
@@ -183,11 +187,16 @@ var quiz = {
 
     // (D2) CHECK IF CORRECT
     let correct = option.dataset.idx == quiz.data[quiz.now].answer;
+    // sound effect
+    var correctSound = new Audio("sound/correct.wav")
+    var wrongSound = new Audio("sound/wrong.mp3")
     if (correct) {
       quiz.score++;
       option.classList.add("correct");
+      correctSound.play();
     } else {
       option.classList.add("wrong");
+      wrongSound.play();
     }
 
     // (D3) NEXT QUESTION OR END GAME
@@ -215,6 +224,10 @@ var start_button = document.getElementById("start_button");
 start_button.addEventListener("click", init_quiz);
 
 function init_quiz() {
+  quiz_length = document.getElementById("quiz_length").value
+  if(isNaN(quiz_length) || quiz_length < 1 || quiz_length > 10) {
+    return
+  }
   // hide description
   document.getElementById("description").style.display = "none";
   // hide menu
@@ -222,7 +235,26 @@ function init_quiz() {
   // display quiz wrap
   document.getElementById("quizWrap").style.display = "block";
   // initialise quiz
-  quiz.init();
+  quiz.init(quiz_length);
   // remove event listener so that it only the first click initialse the quiz
   start_button.removeEventListener("click", init_quiz);
+}
+
+// Source: https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+// Fisher–Yates shuffle algorithm
+function shuffle(array) {
+  let currentIndex = array.length,  randomIndex;
+
+  // While there remain elements to shuffle.
+  while (currentIndex != 0) {
+
+    // Pick a remaining element.
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+  }
+
+  return array;
 }
